@@ -1,6 +1,6 @@
 ## graphbook
 
-#React, GraphQL, SQL, Node.js, Sequelize,
+# React, GraphQL, SQL, Node.js, Sequelize,
 
-###News feed application
+### News feed application
 
