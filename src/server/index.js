@@ -3,10 +3,23 @@ import path from 'path';
 import cors from 'cors';
 import helmet from 'helmet';
 import compress from 'compression';
+import services from './services';
+const servicesNames = Object.keys(services);
 
 const root = path.join(__dirname, '../../');
 const app = express();
 
+for (let i = 0; i < servicesNames.length; i += 1) {
+  const name = servicesNames[i];
+  if (name === 'graphql') {
+    (async () => {
+      await services[name].start();
+      services[name].applyMiddleware({ app });
+    })();
+  } else {
+    app.use(`/${name}`, services[name]);
+  }
+}
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
